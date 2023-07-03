@@ -3,8 +3,6 @@ const express = require('express');
 const fs = require('fs');
 const sls = require('serverless-http');
 const upload = require("express-fileupload")
-const multer = require('multer');
-const uploads = multer({ dest: 'uploads/' });
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(upload())
@@ -26,10 +24,10 @@ app.get("/", (req, res, next) => {
 
 })
 
-app.post('/fileRequest', uploads.single('file'), (req, res, next) => {
+app.post('/fileRequest', (req, res, next) => {
   starttime = (new Date()).getTime();
-  //let file = req.files.dataFile;
-  const file = req.file;
+  let file = req.files.dataFile;
+
   //console.log(Buffer(file.data).toString("utf-8"));
   var str = "";
 
@@ -92,8 +90,8 @@ app.post("/download", (req, res, next) => {
     }
   });
 
-  
-  
+
+
 
 })
 
